@@ -6,14 +6,14 @@ const app = express();
 // Connect database
 connectDB();
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 app.get('/', (req, res) => res.send('API running'));
 
 // Define routes
-app.use('/api/users', require('./routes/api/users'));
+app.use('/api/user', require('./routes/api/user'));
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/calendars', require('./routes/api/calendars'));
-app.use('/api/workouts', require('./routes/api/workouts'));
-app.use('/api/exercises', require('./routes/api/exercises'));
 
 const PORT = process.env.PORT || 5000;
 

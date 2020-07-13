@@ -7,6 +7,7 @@ const config = require('config');
 const { check, validationResult } = require('express-validator');
 
 const User = require('../../models/User');
+const Calendar = require('../../models/Calendar');
 
 // @route     POST api/user
 // @desc      Register user
@@ -53,6 +54,20 @@ router.post(
         avatar,
         password,
       });
+
+      // Create a new calendar for the user
+      const calendarData = {
+        user: req.user.id,
+        workouts: [],
+        currentWorkoutId: '0',
+      };
+
+      // User upsert option (creates new doc if no match is found)
+      await Calendar.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: calendarData },
+        { new: true, upsert: true },
+      );
 
       // Encrypt password
       const salt = await bcrypt.genSalt(10);

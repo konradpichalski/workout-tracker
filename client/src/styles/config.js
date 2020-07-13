@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 // variables
 export const colours = {
@@ -59,4 +59,11 @@ export const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+`;
+
+export const AppScreen = styled.section`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  ${flex('row', 'flex-start', 'center')}
 `;

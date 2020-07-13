@@ -4,22 +4,21 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Menu from './components/Menu/Menu';
 import Login from './components/Login/Login';
+import Landing from './components/Landing/Landing';
 
 import store from './store';
 
-import { GlobalStyle } from './styles/config';
+import { GlobalStyle, AppScreen } from './styles/config';
 
 const App = () => (
-  <Provider store={store}><Router>
-    <GlobalStyle />
-    <Fragment>
-      <Menu />
-
-      <Switch>
+  <Provider store={store}>
+    <Router>
+      <GlobalStyle />
+      <AppScreen>
+        <Route exact path='/' component={Landing} />
         <Route exact path='/' component={Login} />
-      </Switch>
-    </Fragment>
-  </Router>
+      </AppScreen>
+    </Router>
   </Provider>
 );
 

@@ -1,9 +1,21 @@
 import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import Menu from './components/Menu/Menu';
+import Login from './components/Login/Login';
+import { GlobalStyle } from './styles/config';
 
 const App = () => (
-  <Fragment>
-    <h1>App</h1>
-  </Fragment>
+  <Router>
+    <GlobalStyle />
+    <Fragment>
+      <Menu />
+
+      <Switch>
+        <Route exact path='/' component={Login} />
+      </Switch>
+    </Fragment>
+  </Router>
 );
 
 export default App;

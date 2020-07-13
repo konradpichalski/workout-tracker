@@ -14,6 +14,10 @@ const WorkoutSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
+  trainingPlanId: {
+    type: String,
+    required: true,
+  },
   exercises: [],
 });
 

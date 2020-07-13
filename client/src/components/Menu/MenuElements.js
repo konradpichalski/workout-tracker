@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import MenuLink from './MenuLink';
 import MenuButton from './MenuButton';
+
+import { logout } from '../../actions/auth';
 
 import { Avatar, Name } from './styled';
 import {
@@ -12,7 +15,7 @@ import {
   menuLogoutSvg,
 } from '../../styles/svgs';
 
-const MenuElements = ({ user }) => {
+const MenuElements = ({ user, logout }) => {
   let avatarBlock = '';
 
   if (user) {
@@ -47,14 +50,19 @@ const MenuElements = ({ user }) => {
         link='/settings'
         icon={menuSettingsSvg}
       />
-      <MenuButton itemId='logout' label='logout' icon={menuLogoutSvg} />
+      <MenuButton
+        itemId='logout'
+        label='logout'
+        icon={menuLogoutSvg}
+        handleClick={logout}
+      />
     </Fragment>
   );
 };
 
 MenuElements.propTypes = {
-  screen: PropTypes.string,
   user: PropTypes.object,
+  logout: PropTypes.func.isRequired,
 };
 
-export default MenuElements;
+export default connect(null, { logout })(MenuElements);

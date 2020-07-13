@@ -55,26 +55,26 @@ router.post(
         password,
       });
 
-      // Create a new calendar for the user
-      const calendarData = {
-        user: req.user.id,
-        workouts: [],
-        currentWorkoutId: '0',
-      };
-
-      // User upsert option (creates new doc if no match is found)
-      await Calendar.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: calendarData },
-        { new: true, upsert: true },
-      );
-
       // Encrypt password
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
+
+      // Create a new calendar for the user
+      const calendarData = {
+        user: user.id,
+        workouts: [],
+        currentWorkoutId: '0',
+      };
+
+      // User upsert option (creates new doc if no match is found)
+      await Calendar.findOneAndUpdate(
+        { user: user.id },
+        { $set: calendarData },
+        { new: true, upsert: true },
+      );
 
       const payload = {
         user: {

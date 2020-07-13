@@ -17,7 +17,10 @@ const App = () => (
       <GlobalStyle />
       <AppScreen>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/' component={Register} />
+        <Route exact path='/' component={Login} />
+
+        <Route exact path='/register' component={Landing} />
+        <Route exact path='/register' component={Register} />
       </AppScreen>
     </Router>
   </Provider>

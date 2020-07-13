@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // import components
@@ -11,6 +11,7 @@ import { register } from '../../actions/auth';
 
 // import styling
 import { AuthContainer, Logo, Header2, Form } from './styled';
+import { Paragraph } from '../../styles/shared.styled';
 import { logoIconSvg } from '../../styles/svgs';
 
 // component
@@ -29,7 +30,8 @@ const Register = ({ register, isAuthenticated }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    register(email, password);
+
+    register(formData);
   };
 
   if (isAuthenticated) {
@@ -61,9 +63,13 @@ const Register = ({ register, isAuthenticated }) => {
         />
       </Form>
 
-      <ActionButton primary fullWidth>
+      <ActionButton primary fullWidth onClick={onSubmit}>
         Register
       </ActionButton>
+
+      <Paragraph>
+        Registered already? <Link to='/'>Login</Link>
+      </Paragraph>
     </AuthContainer>
   );
 };

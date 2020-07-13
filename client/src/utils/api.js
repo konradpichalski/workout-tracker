@@ -9,7 +9,7 @@ const api = axios.create({
   },
 });
 
-//intercept any error responses from the api and check
+// intercept any error responses from the api and check
 // for valid token - if not - log out
 api.interceptors.response.use(
   (res) => res,

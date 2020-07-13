@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { flex, colours } from '../../styles/config';
+import { colours } from '../../styles/config';
 
 const { primary, textPrimary, backLight } = colours;
 

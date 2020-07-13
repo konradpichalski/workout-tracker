@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 // import components
@@ -11,6 +11,7 @@ import { login } from '../../actions/auth';
 
 // import styling
 import { AuthContainer, Logo, Header2, Form } from './styled';
+import { Paragraph } from '../../styles/shared.styled';
 import { logoIconSvg } from '../../styles/svgs';
 
 // component
@@ -37,9 +38,7 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <AuthContainer>
       <Logo>{logoIconSvg}</Logo>
-
       <Header2>Login</Header2>
-
       <Form onSubmit={onSubmit}>
         <Input label='email' name='email' value={email} onChange={onChange} />
         <Input
@@ -50,10 +49,13 @@ const Login = ({ login, isAuthenticated }) => {
           onChange={onChange}
         />
       </Form>
-
-      <ActionButton primary fullWidth>
+      <ActionButton primary fullWidth onClick={onSubmit}>
         Login
       </ActionButton>
+
+      <Paragraph>
+        Don't have an account? <Link to='/register'>Register</Link>
+      </Paragraph>
     </AuthContainer>
   );
 };

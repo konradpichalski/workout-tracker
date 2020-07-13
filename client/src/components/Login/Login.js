@@ -1,5 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Login = () => <div>Login</div>;
+// import components
+import Input from '../Input/Input';
+import ActionButton from '../ActionButton/ActionButton';
+// import actions
+import { login } from '../../actions/auth';
 
-export default Login;
+// import styling
+import { AuthContainer, Logo, Header2, Form } from './styled';
+import { logoIconSvg } from '../../styles/svgs';
+
+// component
+const Login = ({ login, isAuthenticated }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = formData;
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    login(email, password);
+  };
+
+  if (isAuthenticated) {
+    return <Redirect to='/calendar' />;
+  }
+
+  return (
+    <AuthContainer>
+      <Logo>{logoIconSvg}</Logo>
+
+      <Header2>Login</Header2>
+
+      <Form onSubmit={onSubmit}>
+        <Input label='email' name='email' value={email} onChange={onChange} />
+        <Input
+          label='password'
+          name='password'
+          value={password}
+          type='password'
+          onChange={onChange}
+        />
+      </Form>
+
+      <ActionButton primary fullWidth>
+        Login
+      </ActionButton>
+    </AuthContainer>
+  );
+};
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

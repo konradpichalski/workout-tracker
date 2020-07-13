@@ -90,4 +90,46 @@ router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
   }
 });
 
+// @route     POST api/exerciseplan/:id
+// @desc      Update exercise plan by id
+// @access    Private
+router.post(
+  '/:id',
+  [
+    auth,
+    checkObjectId('id'),
+    check('name', 'Exercise name is required').not().isEmpty(),
+    check('sets', 'Sets are required').not().isEmpty(),
+  ],
+  async (req, res) => {
+    // Validate required fields first and check for errors
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const exercisePlanData = {
+      user: req.user.id,
+      name: req.body.name,
+      _id: req.params.id,
+      sets: req.body.sets,
+    };
+
+    try {
+      // User upsert option (creates new doc if no match is found)
+      const updatedExercisePlan = await ExercisePlan.findOneAndUpdate(
+        { user: req.user.id, _id: req.params.id },
+        { $set: exercisePlanData },
+        { new: true, upsert: true },
+      );
+
+      res.json(updatedExercisePlan);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  },
+);
+
 module.exports = router;

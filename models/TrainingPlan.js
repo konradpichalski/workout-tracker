@@ -12,11 +12,7 @@ const TrainingPlanSchema = mongoose.Schema({
   },
   exercises: [
     {
-      id: {
-        type: String,
-        required: true,
-      },
-      _id: {
+      exercisePlanId: {
         type: String,
         required: true,
       },

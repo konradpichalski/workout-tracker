@@ -1,4 +1,4 @@
-import { LOGOUT, LOGIN } from './types';
+import { LOGOUT, LOGIN, REGISTER } from './types';
 import { setAlert } from './alert';
 
 export const logout = () => async (dispatch) => {
@@ -8,4 +8,8 @@ export const logout = () => async (dispatch) => {
 
 export const login = () => ({
   type: LOGIN,
+});
+
+export const register = () => ({
+  type: REGISTER,
 });

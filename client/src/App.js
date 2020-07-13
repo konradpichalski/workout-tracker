@@ -3,7 +3,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Menu from './components/Menu/Menu';
-import Login from './components/Login/Login';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 import Landing from './components/Landing/Landing';
 
 import store from './store';
@@ -16,7 +17,7 @@ const App = () => (
       <GlobalStyle />
       <AppScreen>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/' component={Login} />
+        <Route exact path='/' component={Register} />
       </AppScreen>
     </Router>
   </Provider>

@@ -21,6 +21,8 @@
   },
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "cd client && yarn start",
+    "dev": "concurrently \"yarn server\" \"cd client\" \"yarn client\""
   }
 }

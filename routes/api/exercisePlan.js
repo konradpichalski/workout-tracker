@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const auth = require('../../middleware/auth');
+const checkObjectId = require('../../middleware/checkObjectById');
 
 const ExercisePlan = require('../../models/ExercisePlan');
 
@@ -64,5 +65,29 @@ router.post(
     }
   },
 );
+
+// @route     GET api/exerciseplan/:id
+// @desc      Get exercise plan by id
+// @access    Private
+router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    // find an exercise with id for the right user
+    const exercise = await ExercisePlan.findOne({
+      user: req.user.id,
+      _id: req.params.id,
+    });
+
+    if (!exercise) {
+      return res
+        .status(400)
+        .json({ msg: 'There is no exercise plan for this user with this id' });
+    }
+
+    res.json(exercise);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;

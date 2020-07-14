@@ -63,7 +63,7 @@ const Register = ({ register, isAuthenticated }) => {
         />
       </Form>
 
-      <ActionButton primary fullWidth onClick={onSubmit}>
+      <ActionButton primary fullWidth handleClick={onSubmit}>
         Register
       </ActionButton>
 

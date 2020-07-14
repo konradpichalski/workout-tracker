@@ -19,23 +19,24 @@ const ListItem = ({
   isDeletable,
   handleDelete,
   handleEdit,
+  icon,
 }) => {
   return (
     <ListItemContainer>
       <Selectable onClick={() => setActive(_id)}>
-        <Icon active={active}></Icon>
+        <Icon active={active}>{icon}</Icon>
         <ListLabel active={active}>{name}</ListLabel>
       </Selectable>
 
       {active && (
         <ButtonWrapper>
           {isEditable && (
-            <ActionButton primary smMargin onClick={() => handleEdit(_id)}>
+            <ActionButton primary smMargin handleClick={() => handleEdit(_id)}>
               Edit
             </ActionButton>
           )}
           {isDeletable && (
-            <ActionButton smMargin onClick={() => handleDelete(_id)}>
+            <ActionButton smMargin handleClick={() => handleDelete(_id)}>
               Delete
             </ActionButton>
           )}
@@ -48,6 +49,7 @@ const ListItem = ({
 ListItem.propTypes = {
   item: PropTypes.object.isRequired,
   active: PropTypes.bool.isRequired,
+  icon: PropTypes.object.isRequired,
   isEditable: PropTypes.bool,
   idDeletable: PropTypes.bool,
   handleDelete: PropTypes.func,

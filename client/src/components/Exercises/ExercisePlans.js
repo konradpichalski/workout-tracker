@@ -11,6 +11,7 @@ import {
 } from '../../actions/exerciseplan';
 
 import { Container, List, Header } from '../../styles/shared.styled';
+import { menuPlansSvg } from '../../styles/svgs';
 
 const ExercisePlans = ({
   exercisePlans,
@@ -46,6 +47,7 @@ const ExercisePlans = ({
                   isDeletable
                   handleEdit={() => setRedirect(`/exerciseplan/${_id}`)}
                   handleDelete={() => deleteExercisePlan(_id)}
+                  icon={menuPlansSvg}
                 ></ListItem>
               );
             })}

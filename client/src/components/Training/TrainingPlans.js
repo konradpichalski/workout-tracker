@@ -11,6 +11,7 @@ import {
 } from '../../actions/trainingplan';
 
 import { Container, List, Header } from '../../styles/shared.styled';
+import { menuPlansSvg } from '../../styles/svgs';
 
 const TrainingPlans = ({
   trainingPlans,
@@ -46,6 +47,7 @@ const TrainingPlans = ({
                   isDeletable
                   handleEdit={() => setRedirect(`/trainingplan/${_id}`)}
                   handleDelete={() => deleteTrainingPlan(_id)}
+                  icon={menuPlansSvg}
                 ></ListItem>
               );
             })}

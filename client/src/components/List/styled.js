@@ -33,6 +33,16 @@ export const Icon = styled.div`
   height: 40px;
   border-radius: 50%;
   margin: 10px 10px 10px 0;
+  ${flex('column', 'center', 'center')}
+
+  svg {
+    width: 60%;
+    height: 60%;
+
+    .st0 {
+      fill: ${(props) => (props.active ? '#fff' : textSecondary)};
+    }
+  }
 `;
 
 export const ButtonWrapper = styled.div`

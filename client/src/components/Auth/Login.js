@@ -49,7 +49,7 @@ const Login = ({ login, isAuthenticated }) => {
           onChange={onChange}
         />
       </Form>
-      <ActionButton primary fullWidth onClick={onSubmit}>
+      <ActionButton primary fullWidth handleClick={onSubmit}>
         Login
       </ActionButton>
 

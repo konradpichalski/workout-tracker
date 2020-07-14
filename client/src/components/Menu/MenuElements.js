@@ -18,8 +18,6 @@ import {
 const MenuElements = ({ user, logout }) => {
   let avatarBlock = '';
 
-  console.log(user);
-
   if (user) {
     const { avatar, name } = user;
 

@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import ActionButton from '../ActionButton/ActionButton';
-
-import { deleteTrainingPlan } from '../../actions/trainingplan';
 
 import {
   ListItemContainer,
@@ -21,17 +17,12 @@ const ListItem = ({
   setActive,
   isEditable,
   isDeletable,
-  deleteTrainingPlan,
+  handleDelete,
+  handleEdit,
 }) => {
-  const [redirect, setRedirect] = useState('');
-
-  const handleClick = () => setActive(_id);
-
-  if (redirect !== '') return <Redirect to={redirect} />;
-
   return (
     <ListItemContainer>
-      <Selectable onClick={handleClick}>
+      <Selectable onClick={() => setActive(_id)}>
         <Icon active={active}></Icon>
         <ListLabel active={active}>{name}</ListLabel>
       </Selectable>
@@ -39,16 +30,12 @@ const ListItem = ({
       {active && (
         <ButtonWrapper>
           {isEditable && (
-            <ActionButton
-              primary
-              smMargin
-              onClick={() => setRedirect(`/trainingplan/${_id}`)}
-            >
+            <ActionButton primary smMargin onClick={() => handleEdit(_id)}>
               Edit
             </ActionButton>
           )}
           {isDeletable && (
-            <ActionButton smMargin onClick={() => deleteTrainingPlan(_id)}>
+            <ActionButton smMargin onClick={() => handleDelete(_id)}>
               Delete
             </ActionButton>
           )}
@@ -63,7 +50,8 @@ ListItem.propTypes = {
   active: PropTypes.bool.isRequired,
   isEditable: PropTypes.bool,
   idDeletable: PropTypes.bool,
-  deleteTrainingPlan: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func,
+  handleEdit: PropTypes.func,
 };
 
-export default connect(null, { deleteTrainingPlan })(ListItem);
+export default ListItem;

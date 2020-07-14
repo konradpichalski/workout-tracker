@@ -132,4 +132,21 @@ router.post(
   },
 );
 
+// @route     DELETE api/exerciseplan/:id
+// @desc      Delete exercise plan by id
+// @access    Private
+router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
+  try {
+    await ExercisePlan.findOneAndRemove({
+      user: req.user.id,
+      _id: req.params.id,
+    });
+
+    res.json({ msg: 'Exercise plan deleted' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;

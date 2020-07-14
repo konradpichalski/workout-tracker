@@ -38,18 +38,28 @@ const MenuElements = ({ user, logout }) => {
         link='/calendar'
         icon={menuCalendarSvg}
       />
+
       <MenuLink
-        itemId='plans'
-        label='plans'
-        link='/plans'
+        itemId='trainingplans'
+        label='training plans'
+        link='/trainingplans'
         icon={menuPlansSvg}
       />
+
+      <MenuLink
+        itemId='exercises'
+        label='exercises'
+        link='/exercises'
+        icon={menuPlansSvg}
+      />
+
       <MenuLink
         itemId='settings'
         label='settings'
         link='/settings'
         icon={menuSettingsSvg}
       />
+
       <MenuButton
         itemId='logout'
         label='logout'

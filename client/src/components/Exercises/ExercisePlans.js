@@ -10,13 +10,14 @@ import {
   deleteExercisePlan,
 } from '../../actions/exerciseplan';
 
-import { Container, List, Header } from '../../styles/shared.styled';
+import { Container, List, Header, Loading } from '../../styles/shared.styled';
 import { menuPlansSvg } from '../../styles/svgs';
 
 const ExercisePlans = ({
   exercisePlans,
   getExercisePlans,
   deleteExercisePlan,
+  isLoading,
 }) => {
   const [activeItem, setActiveItem] = useState('0');
   const [redirect, setRedirect] = useState('');
@@ -26,6 +27,14 @@ const ExercisePlans = ({
   }, [getExercisePlans]);
 
   if (redirect !== '') return <Redirect to={redirect} />;
+
+  if (isLoading)
+    return (
+      <Fragment>
+        <Header>Exercises</Header>
+        <Loading>Loading...</Loading>
+      </Fragment>
+    );
 
   return (
     <Fragment>
@@ -61,11 +70,13 @@ ExercisePlans.propTypes = {
   exercisePlans: PropTypes.array.isRequired,
   getExercisePlans: PropTypes.func.isRequired,
   deleteExercisePlan: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ exercisePlan }) => {
   return {
     exercisePlans: exercisePlan.exercisePlans,
+    isLoading: exercisePlan.loading,
   };
 };
 

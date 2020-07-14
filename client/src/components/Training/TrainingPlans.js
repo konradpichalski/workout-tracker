@@ -10,13 +10,14 @@ import {
   deleteTrainingPlan,
 } from '../../actions/trainingplan';
 
-import { Container, List, Header } from '../../styles/shared.styled';
+import { Container, List, Header, Loading } from '../../styles/shared.styled';
 import { menuPlansSvg } from '../../styles/svgs';
 
 const TrainingPlans = ({
   trainingPlans,
   getTrainingPlans,
   deleteTrainingPlan,
+  isLoading,
 }) => {
   const [activeItem, setActiveItem] = useState('0');
   const [redirect, setRedirect] = useState('');
@@ -26,6 +27,14 @@ const TrainingPlans = ({
   }, [getTrainingPlans]);
 
   if (redirect !== '') return <Redirect to={redirect} />;
+
+  if (isLoading)
+    return (
+      <Fragment>
+        <Header>Exercises</Header>
+        <Loading>Loading...</Loading>
+      </Fragment>
+    );
 
   return (
     <Fragment>
@@ -61,11 +70,13 @@ TrainingPlans.propTypes = {
   trainingPlans: PropTypes.array.isRequired,
   getTrainingPlans: PropTypes.func.isRequired,
   deleteTrainingPlan: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = ({ trainingPlan }) => {
   return {
     trainingPlans: trainingPlan.trainingPlans,
+    isLoading: trainingPlan.loading,
   };
 };
 

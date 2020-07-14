@@ -17,6 +17,8 @@ router.get('/', auth, async (req, res) => {
       user: req.user.id,
     });
 
+    console.log(trainingPlans, req.user.id);
+
     if (!trainingPlans) {
       return res
         .status(400)

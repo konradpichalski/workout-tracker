@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 import { colours } from '../../styles/config';
 
-const { primary, textPrimary, backLight } = colours;
+const { primary, textPrimary, textSecondary, backLight } = colours;
 
 export const Button = styled.button`
-  color: ${textPrimary};
+  color: ${(props) => (props.primary ? textPrimary : textSecondary)};
   cursor: pointer;
   background: ${(props) => (props.primary ? primary : backLight)};
   padding: 8px 20px;
   border-radius: 4px;
   text-transform: uppercase;
   width: ${(props) => props.fullWidth && '100%'};
-  margin: 2rem;
+  margin: ${(props) => (props.smMargin ? '10px' : '2rem')};
 `;

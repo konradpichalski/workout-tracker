@@ -12,5 +12,5 @@ export const Button = styled.button`
   border-radius: 4px;
   text-transform: uppercase;
   width: ${(props) => props.fullWidth && '100%'};
-  margin: ${(props) => (props.smMargin ? '10px' : '2rem')};
+  margin: 10px;
 `;

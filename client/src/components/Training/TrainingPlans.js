@@ -12,6 +12,7 @@ import {
 
 import { Container, List, Header, Loading } from '../../styles/shared.styled';
 import { menuPlansSvg } from '../../styles/svgs';
+import ActionButton from '../ActionButton/ActionButton';
 
 const TrainingPlans = ({
   trainingPlans,
@@ -61,6 +62,13 @@ const TrainingPlans = ({
               );
             })}
         </List>
+
+        <ActionButton
+          primary
+          handleClick={() => setRedirect('/trainingplan/new')}
+        >
+          Add a new training plan
+        </ActionButton>
       </Container>
     </Fragment>
   );

@@ -1,4 +1,9 @@
-import { GET_TRAINING_PLANS, DELETE_TRAINING_PLAN } from './types';
+import {
+  GET_TRAINING_PLANS,
+  DELETE_TRAINING_PLAN,
+  GET_TRAINING_PLAN_BY_ID,
+  ADD_NEW_TRAINING,
+} from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
 
@@ -25,6 +30,25 @@ export const deleteTrainingPlan = (id) => async (dispatch) => {
     });
 
     dispatch(setAlert('Training plan deleted', 'success'));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getTrainingPlanById = (id) => async (dispatch) => {
+  try {
+    if (id !== 'new') {
+      const res = await api.get(`/trainingplan/${id}`);
+
+      dispatch({
+        type: GET_TRAINING_PLAN_BY_ID,
+        payload: res.data,
+      });
+    } else {
+      dispatch({
+        type: ADD_NEW_TRAINING,
+      });
+    }
   } catch (err) {
     console.error(err);
   }

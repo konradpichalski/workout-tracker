@@ -18,6 +18,8 @@ import {
 const MenuElements = ({ user, logout }) => {
   let avatarBlock = '';
 
+  console.log(user);
+
   if (user) {
     const { avatar, name } = user;
 
@@ -75,4 +77,10 @@ MenuElements.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(null, { logout })(MenuElements);
+const mapStateToProps = ({ auth }) => {
+  return {
+    user: auth.user,
+  };
+};
+
+export default connect(mapStateToProps, { logout })(MenuElements);

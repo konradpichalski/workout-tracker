@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Landing from './components/Landing/Landing';
+import Alert from './components/Alert/Alert';
 import Routes from './components/Routing/Routes';
 
 import store from './store';
@@ -23,6 +24,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <GlobalStyle />
+        <Alert />
 
         <Switch>
           <Route exact path='/'>

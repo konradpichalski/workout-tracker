@@ -14,8 +14,6 @@ const TrainingPlans = ({ trainingPlans, getTrainingPlans }) => {
     getTrainingPlans();
   }, [getTrainingPlans]);
 
-  console.log(trainingPlans, activeItem);
-
   return (
     <Fragment>
       <Header>Training Plans</Header>

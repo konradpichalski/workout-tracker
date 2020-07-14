@@ -1,4 +1,4 @@
-import { GET_TRAINING_PLANS } from '../actions/types';
+import { GET_TRAINING_PLANS, DELETE_TRAINING_PLAN } from '../actions/types';
 
 const initialState = {
   trainingPlans: [],
@@ -12,6 +12,14 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         trainingPlans: payload,
+      };
+    case DELETE_TRAINING_PLAN:
+      return {
+        ...state,
+        loading: false,
+        trainingPlans: state.trainingPlans.filter(
+          (trainingPlan) => trainingPlan._id !== payload,
+        ),
       };
     default:
       return state;

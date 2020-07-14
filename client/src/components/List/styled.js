@@ -36,6 +36,6 @@ export const Icon = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 40%;
   ${flex('row', 'flex-end', 'center')}
+  margin-left: auto;
 `;

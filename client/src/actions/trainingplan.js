@@ -3,6 +3,7 @@ import {
   DELETE_TRAINING_PLAN,
   GET_TRAINING_PLAN_BY_ID,
   ADD_NEW_TRAINING,
+  UPDATE_CURRENT_TRAINING_PLAN,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -53,3 +54,8 @@ export const getTrainingPlanById = (id) => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const updateCurrentTrainingPlans = (trainingPlan) => ({
+  type: UPDATE_CURRENT_TRAINING_PLAN,
+  payload: trainingPlan,
+});

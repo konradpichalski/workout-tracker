@@ -3,6 +3,7 @@ import {
   DELETE_TRAINING_PLAN,
   GET_TRAINING_PLAN_BY_ID,
   ADD_NEW_TRAINING,
+  UPDATE_CURRENT_TRAINING_PLAN,
 } from '../actions/types';
 
 const trainingPlan = {
@@ -46,6 +47,12 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         loading: false,
         currentTrainingPlan: trainingPlan,
+      };
+    case UPDATE_CURRENT_TRAINING_PLAN:
+      return {
+        ...state,
+        loading: false,
+        currentTrainingPlan: payload,
       };
     default:
       return state;

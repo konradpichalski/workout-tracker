@@ -38,3 +38,8 @@ export const List = styled.ul`
 `;
 
 export const Loading = Container;
+
+export const Label = styled.p`
+  color: ${textPrimary};
+  font-size: 0.9rem;
+`;

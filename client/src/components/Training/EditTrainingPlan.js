@@ -5,14 +5,18 @@ import PropTypes from 'prop-types';
 import Input from '../Input/Input';
 import ExerciseItem from '../Exercises/ExerciseItem';
 
-import { getTrainingPlanById } from '../../actions/trainingplan';
+import {
+  getTrainingPlanById,
+  updateCurrentTrainingPlans,
+} from '../../actions/trainingplan';
 
-import { Container, Header } from '../../styles/shared.styled';
+import { Container, Header, Label } from '../../styles/shared.styled';
 
 const EditTrainingPlan = ({
   trainingPlan,
   isTrainingPlanLoading,
   getTrainingPlanById,
+  updateCurrentTrainingPlans,
   match,
 }) => {
   const trainingPlanId = match.params.id;
@@ -38,9 +42,23 @@ const EditTrainingPlan = ({
           onChange={(e) => console.log(e)}
         />
 
+        {exercises.length > 0 && <Label>Exercises:</Label>}
+
         {exercises.length > 0 &&
           exercises.map((exercisePlan) => (
-            <ExerciseItem key={exercisePlan._id} exercisePlan={exercisePlan} />
+            <ExerciseItem
+              key={exercisePlan._id}
+              exercisePlan={exercisePlan}
+              isDeletable={true}
+              handleDelete={() =>
+                updateCurrentTrainingPlans({
+                  ...trainingPlan,
+                  exercises: exercises.filter(
+                    (exercise) => exercise._id !== exercisePlan._id,
+                  ),
+                })
+              }
+            />
           ))}
       </Container>
 
@@ -52,6 +70,7 @@ const EditTrainingPlan = ({
 EditTrainingPlan.propTypes = {
   trainingPlan: PropTypes.object.isRequired,
   getTrainingPlanById: PropTypes.func.isRequired,
+  updateCurrentTrainingPlans: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   isTrainingPlanLoading: PropTypes.bool.isRequired,
 };
@@ -63,6 +82,7 @@ const mapStateToProps = ({ trainingPlan }) => {
   };
 };
 
-export default connect(mapStateToProps, { getTrainingPlanById })(
-  EditTrainingPlan,
-);
+export default connect(mapStateToProps, {
+  getTrainingPlanById,
+  updateCurrentTrainingPlans,
+})(EditTrainingPlan);

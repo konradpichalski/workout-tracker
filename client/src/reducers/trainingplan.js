@@ -36,7 +36,10 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        currentTrainingPlan: payload,
+        currentTrainingPlan: {
+          ...payload.trainingPlan,
+          exercises: payload.exercises,
+        },
       };
     case ADD_NEW_TRAINING:
       return {

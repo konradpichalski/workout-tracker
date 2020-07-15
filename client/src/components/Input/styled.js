@@ -2,12 +2,13 @@ import styled from 'styled-components';
 
 import { flex, colours } from '../../styles/config';
 
-const { primary, backDark, backLight } = colours;
+const { primary, backDark, backLight, textPrimary } = colours;
 
 export const InputContainer = styled.div`
   width: 100%;
   margin: 0.5rem 0;
-  ${flex('column', 'center', 'flex-start')}
+  color: ${textPrimary};
+  ${flex('column', 'stretch', 'flex-start')}
 `;
 
 export const Label = styled.label`

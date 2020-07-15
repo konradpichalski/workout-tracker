@@ -6,6 +6,7 @@ const auth = require('../../middleware/auth');
 const checkObjectId = require('../../middleware/checkObjectById');
 
 const TrainingPlan = require('../../models/TrainingPlan');
+const ExercisePlan = require('../../models/ExercisePlan');
 
 // @route     GET api/trainingplan
 // @desc      Get training plans
@@ -85,7 +86,19 @@ router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
         .json({ msg: 'There is no training plan for this user with this id' });
     }
 
-    res.json(trainingPlan);
+    // query all the exercises based on ids in the training plan >> exercises array
+    const exercises = await ExercisePlan.find({
+      _id: {
+        $in: trainingPlan.exercises.map(({ exercisePlanId }) => exercisePlanId),
+      },
+    });
+
+    const updatedTrainingPlan = {
+      trainingPlan,
+      exercises,
+    };
+
+    res.json(updatedTrainingPlan);
   } catch (err) {
     console.error(err);
     res.status(500).send('Server error');

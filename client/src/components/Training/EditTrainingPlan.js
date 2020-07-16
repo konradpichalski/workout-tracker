@@ -44,7 +44,12 @@ const EditTrainingPlan = ({
           name='name'
           label='Name:'
           value={name}
-          onChange={(e) => console.log(e)}
+          onChange={(e) =>
+            updateCurrentTrainingPlans({
+              ...trainingPlan,
+              name: e.target.value,
+            })
+          }
         />
 
         {exercises.length > 0 && <Label>Exercises:</Label>}
@@ -61,7 +66,7 @@ const EditTrainingPlan = ({
           />
         )}
 
-        {exercises.length > 0 && (
+        {exercises.length > 0 && trainingPlan.name !== '' && (
           <ActionButton
             primary
             handleClick={() => updateTrainingPlan(trainingPlan)}

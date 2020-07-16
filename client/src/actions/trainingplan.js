@@ -5,6 +5,7 @@ import {
   ADD_NEW_TRAINING,
   UPDATE_CURRENT_TRAINING_PLAN,
   UPDATE_TRAINING_PLAN,
+  RESET_CURRENT_TRAINING_PLAN,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -58,10 +59,11 @@ export const getTrainingPlanById = (id) => async (dispatch) => {
 
 export const updateTrainingPlan = (trainingPlan) => async (dispatch) => {
   try {
-    const res = await api.post(
-      `/trainingplan/${trainingPlan._id}`,
-      trainingPlan,
-    );
+    const updatePath = trainingPlan._id
+      ? `/trainingplan/${trainingPlan._id}`
+      : '/trainingplan';
+
+    const res = await api.post(updatePath, trainingPlan);
 
     dispatch({
       type: UPDATE_TRAINING_PLAN,
@@ -77,4 +79,8 @@ export const updateTrainingPlan = (trainingPlan) => async (dispatch) => {
 export const updateCurrentTrainingPlans = (trainingPlan) => ({
   type: UPDATE_CURRENT_TRAINING_PLAN,
   payload: trainingPlan,
+});
+
+export const resetCurrentTrainingPlan = () => ({
+  type: RESET_CURRENT_TRAINING_PLAN,
 });

@@ -5,6 +5,7 @@ import {
   ADD_NEW_TRAINING,
   UPDATE_CURRENT_TRAINING_PLAN,
   UPDATE_TRAINING_PLAN,
+  RESET_CURRENT_TRAINING_PLAN,
 } from '../actions/types';
 
 const trainingPlan = {
@@ -40,6 +41,7 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         currentTrainingPlan: payload,
       };
+    case RESET_CURRENT_TRAINING_PLAN:
     case ADD_NEW_TRAINING:
       return {
         ...state,

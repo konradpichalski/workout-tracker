@@ -8,6 +8,7 @@ import ListItem from '../List/ListItem';
 import {
   getTrainingPlans,
   deleteTrainingPlan,
+  resetCurrentTrainingPlan,
 } from '../../actions/trainingplan';
 
 import { Container, List, Header, Loading } from '../../styles/shared.styled';
@@ -18,6 +19,7 @@ const TrainingPlans = ({
   trainingPlans,
   getTrainingPlans,
   deleteTrainingPlan,
+  resetCurrentTrainingPlan,
   isLoading,
 }) => {
   const [activeItem, setActiveItem] = useState('0');
@@ -27,7 +29,10 @@ const TrainingPlans = ({
     getTrainingPlans();
   }, [getTrainingPlans]);
 
-  if (redirect !== '') return <Redirect to={redirect} />;
+  if (redirect !== '') {
+    resetCurrentTrainingPlan();
+    return <Redirect to={redirect} />;
+  }
 
   if (isLoading)
     return (
@@ -78,6 +83,7 @@ TrainingPlans.propTypes = {
   trainingPlans: PropTypes.array.isRequired,
   getTrainingPlans: PropTypes.func.isRequired,
   deleteTrainingPlan: PropTypes.func.isRequired,
+  resetCurrentTrainingPlan: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -91,4 +97,5 @@ const mapStateToProps = ({ trainingPlan }) => {
 export default connect(mapStateToProps, {
   getTrainingPlans,
   deleteTrainingPlan,
+  resetCurrentTrainingPlan,
 })(TrainingPlans);

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Input from '../Input/Input';
 import ExerciseItem from '../Exercises/ExerciseItem';
+import SelectList from '../SelectList/SelectList';
 
 import {
   getTrainingPlanById,
@@ -26,6 +27,25 @@ const EditTrainingPlan = ({
     getTrainingPlanById(trainingPlanId);
   }, [getTrainingPlanById, trainingPlanId]);
 
+  const renderExerciseList = () =>
+    exercises.map((exercisePlan, index) => (
+      <ExerciseItem
+        key={exercisePlan._id + index}
+        exercisePlan={exercisePlan}
+        isDeletable={true}
+        handleDelete={() =>
+          updateCurrentTrainingPlans({
+            ...trainingPlan,
+            exercises: exercises.filter(
+              (exercise) => exercise._id !== exercisePlan._id,
+            ),
+          })
+        }
+      />
+    ));
+
+  console.log(exercises);
+
   if (isTrainingPlanLoading) return <Container>Loading...</Container>;
 
   return (
@@ -44,25 +64,17 @@ const EditTrainingPlan = ({
 
         {exercises.length > 0 && <Label>Exercises:</Label>}
 
-        {exercises.length > 0 &&
-          exercises.map((exercisePlan) => (
-            <ExerciseItem
-              key={exercisePlan._id}
-              exercisePlan={exercisePlan}
-              isDeletable={true}
-              handleDelete={() =>
-                updateCurrentTrainingPlans({
-                  ...trainingPlan,
-                  exercises: exercises.filter(
-                    (exercise) => exercise._id !== exercisePlan._id,
-                  ),
-                })
-              }
-            />
-          ))}
+        {exercises.length > 0 && renderExerciseList()}
       </Container>
 
-      <Container></Container>
+      <SelectList
+        handleAddExercisePlan={(newExercise) => {
+          updateCurrentTrainingPlans({
+            ...trainingPlan,
+            exercises: [...exercises, newExercise],
+          });
+        }}
+      />
     </Fragment>
   );
 };

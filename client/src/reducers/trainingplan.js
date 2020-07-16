@@ -34,6 +34,7 @@ export default (state = initialState, { type, payload }) => {
         ),
       };
     case GET_TRAINING_PLAN_BY_ID:
+      console.log(payload);
       return {
         ...state,
         loading: false,

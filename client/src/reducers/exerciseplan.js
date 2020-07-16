@@ -62,6 +62,11 @@ export default (state = initialState, { type, payload }) => {
         currentExercisePlan: newExercisePlan,
       };
     case UPDATE_EXERCISE_PLAN:
+      return {
+        ...state,
+        loading: false,
+        exercisePlans: [...state.exercisePlans, payload],
+      };
     default:
       return state;
   }

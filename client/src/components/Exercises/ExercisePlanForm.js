@@ -18,9 +18,9 @@ const ExercisePlanForm = ({
   exercisePlan,
   updateCurrentExercisePlan,
   updateExercisePlan,
+  handleClose,
 }) => {
   const { name, description, sets } = exercisePlan;
-  console.log(exercisePlan);
 
   return (
     <Fragment>
@@ -85,7 +85,10 @@ const ExercisePlanForm = ({
       {exercisePlan.name !== '' && (
         <ActionButton
           primary
-          handleClick={() => updateExercisePlan(exercisePlan)}
+          handleClick={() => {
+            handleClose && handleClose();
+            updateExercisePlan(exercisePlan);
+          }}
         >
           Save exercise
         </ActionButton>
@@ -98,6 +101,7 @@ ExercisePlanForm.propTypes = {
   exercisePlan: PropTypes.object.isRequired,
   updateCurrentExercisePlan: PropTypes.func.isRequired,
   updateExercisePlan: PropTypes.func.isRequired,
+  handleClose: PropTypes.func,
 };
 
 const mapStateToProps = ({ exercisePlan }) => {

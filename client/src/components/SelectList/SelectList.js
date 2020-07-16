@@ -11,6 +11,7 @@ const SelectList = ({
   exercisePlans,
   getExercisePlans,
   handleAddExercisePlan,
+  children,
 }) => {
   useEffect(() => {
     getExercisePlans();
@@ -36,6 +37,7 @@ const SelectList = ({
       <Paragraph>Add an exercise: </Paragraph>
       <ButtonContainer>
         {exercisePlans.length > 0 && renderExercisePlans()}
+        {children}
       </ButtonContainer>
     </Container>
   );

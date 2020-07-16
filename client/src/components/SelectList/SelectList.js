@@ -1,32 +1,16 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import { getExercisePlans } from '../../actions/exerciseplan';
 
 import { ButtonContainer, ButtonChip } from './styled';
 import { Container, Paragraph } from '../../styles/shared.styled';
 
-const SelectList = ({
-  exercisePlans,
-  getExercisePlans,
-  handleAddExercisePlan,
-  children,
-}) => {
-  useEffect(() => {
-    getExercisePlans();
-  }, [getExercisePlans]);
-
-  const renderExercisePlans = () =>
-    exercisePlans.map((exercise) => {
-      const { _id, name } = exercise;
+const SelectList = ({ plans, handleClick, label, children }) => {
+  const renderPlans = () =>
+    plans.map((plan) => {
+      const { _id, name } = plan;
 
       return (
-        <ButtonChip
-          key={_id}
-          onClick={() => handleAddExercisePlan(exercise)}
-          id={_id}
-        >
+        <ButtonChip key={_id} onClick={() => handleClick(plan)} id={_id}>
           {name}
         </ButtonChip>
       );
@@ -34,9 +18,9 @@ const SelectList = ({
 
   return (
     <Container>
-      <Paragraph>Add an exercise: </Paragraph>
+      <Paragraph>{label}</Paragraph>
       <ButtonContainer>
-        {exercisePlans.length > 0 && renderExercisePlans()}
+        {plans.length > 0 && renderPlans()}
         {children}
       </ButtonContainer>
     </Container>
@@ -44,15 +28,8 @@ const SelectList = ({
 };
 
 SelectList.propTypes = {
-  exercisePlans: PropTypes.array.isRequired,
-  getExercisePlans: PropTypes.func.isRequired,
-  handleAddExercisePlan: PropTypes.func.isRequired,
+  plans: PropTypes.array.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ exercisePlan }) => {
-  return {
-    exercisePlans: exercisePlan.exercisePlans,
-  };
-};
-
-export default connect(mapStateToProps, { getExercisePlans })(SelectList);
+export default SelectList;

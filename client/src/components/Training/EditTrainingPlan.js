@@ -15,15 +15,21 @@ import {
   updateCurrentTrainingPlans,
   updateTrainingPlan,
 } from '../../actions/trainingplan';
-import { resetCurrentExercisePlan } from '../../actions/exerciseplan';
+import {
+  resetCurrentExercisePlan,
+  getExercisePlans,
+} from '../../actions/exerciseplan';
 
 import { ButtonChip } from './styled';
 import { Container, Header, Label } from '../../styles/shared.styled';
 
 const EditTrainingPlan = ({
   trainingPlan,
+  exercisePlans,
   isTrainingPlanLoading,
+  isExercisePlanLoading,
   getTrainingPlanById,
+  getExercisePlans,
   updateCurrentTrainingPlans,
   updateTrainingPlan,
   resetCurrentExercisePlan,
@@ -36,9 +42,11 @@ const EditTrainingPlan = ({
 
   useEffect(() => {
     getTrainingPlanById(trainingPlanId);
-  }, [getTrainingPlanById, trainingPlanId]);
+    getExercisePlans();
+  }, [getTrainingPlanById, trainingPlanId, getExercisePlans]);
 
-  if (isTrainingPlanLoading) return <Container>Loading...</Container>;
+  if (isTrainingPlanLoading || isExercisePlanLoading)
+    return <Container>Loading...</Container>;
 
   return (
     <Fragment>
@@ -84,7 +92,8 @@ const EditTrainingPlan = ({
       </Container>
 
       <SelectList
-        handleAddExercisePlan={(newExercise) => {
+        plans={exercisePlans}
+        handleClick={(newExercise) => {
           const { name, sets } = newExercise;
 
           updateCurrentTrainingPlans({
@@ -112,18 +121,23 @@ const EditTrainingPlan = ({
 
 EditTrainingPlan.propTypes = {
   trainingPlan: PropTypes.object.isRequired,
+  exercisePlans: PropTypes.array.isRequired,
   getTrainingPlanById: PropTypes.func.isRequired,
   updateCurrentTrainingPlans: PropTypes.func.isRequired,
   updateTrainingPlan: PropTypes.func.isRequired,
   resetCurrentExercisePlan: PropTypes.func.isRequired,
+  getExercisePlans: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   isTrainingPlanLoading: PropTypes.bool.isRequired,
+  isExercisePlanLoading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ trainingPlan }) => {
+const mapStateToProps = ({ trainingPlan, exercisePlan }) => {
   return {
     trainingPlan: trainingPlan.currentTrainingPlan,
     isTrainingPlanLoading: trainingPlan.loading,
+    exercisePlans: exercisePlan.exercisePlans,
+    isExercisePlanLoading: exercisePlan.loading,
   };
 };
 
@@ -132,4 +146,5 @@ export default connect(mapStateToProps, {
   updateCurrentTrainingPlans,
   updateTrainingPlan,
   resetCurrentExercisePlan,
+  getExercisePlans,
 })(EditTrainingPlan);

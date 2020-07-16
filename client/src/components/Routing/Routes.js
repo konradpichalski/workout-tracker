@@ -6,6 +6,7 @@ import TrainingPlans from '../Training/TrainingPlans';
 import EditTrainingPlan from '../Training/EditTrainingPlan';
 import EditExercisePlan from '../Exercises/EditExercisePlan';
 import ExercisePlans from '../Exercises/ExercisePlans';
+import Calendar from '../Calendar/Calendar';
 import PrivateRoute from './PrivateRoute';
 
 import { ComponentContainer, Section } from './styled';
@@ -29,6 +30,7 @@ const Routes = () => {
             path='/exerciseplan/:id'
             component={EditExercisePlan}
           />
+          <PrivateRoute exact path='/calendar' component={Calendar} />
         </Switch>
       </ComponentContainer>
     </Section>

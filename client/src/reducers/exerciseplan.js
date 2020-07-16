@@ -10,8 +10,19 @@ import {
 
 const newExercisePlan = {
   name: '',
-  sets: [],
-  description: '',
+  sets: [
+    {
+      repRange: {
+        from: 0,
+        to: 0,
+      },
+      rest: {
+        min: 0,
+        sec: 0,
+      },
+    },
+  ],
+  description: ' ',
 };
 
 const initialState = {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import InputNumber from '../Input/InputNumber';
 
@@ -57,5 +58,12 @@ const ExerciseSet = ({
     </TH>
   </tr>
 );
+
+ExerciseSet.propTypes = {
+  set: PropTypes.object.isRequired,
+  num: PropTypes.number.isRequired,
+  handleSetChange: PropTypes.func.isRequired,
+  handleRemoveSet: PropTypes.func.isRequired,
+};
 
 export default ExerciseSet;

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import ListItem from '../List/ListItem';
+import ActionButton from '../ActionButton/ActionButton';
 
 import {
   getExercisePlans,
@@ -66,6 +67,13 @@ const ExercisePlans = ({
               );
             })}
         </List>
+
+        <ActionButton
+          primary
+          handleClick={() => setRedirect('/exerciseplan/new')}
+        >
+          Add a new exercise
+        </ActionButton>
       </Container>
     </Fragment>
   );

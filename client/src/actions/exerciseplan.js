@@ -64,11 +64,11 @@ export const updateCurrentExercisePlan = (exercisePlan) => ({
 
 export const updateExercisePlan = (exercisePlan) => async (dispatch) => {
   try {
-    console.log(exercisePlan);
-    const res = await api.post(
-      `/exerciseplan/${exercisePlan._id}`,
-      exercisePlan,
-    );
+    const updatedPath = exercisePlan._id
+      ? `/exerciseplan/${exercisePlan._id}`
+      : '/exerciseplan';
+
+    const res = await api.post(updatedPath, exercisePlan);
 
     dispatch({
       type: UPDATE_EXERCISE_PLAN,

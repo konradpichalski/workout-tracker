@@ -24,6 +24,7 @@ const ExerciseList = ({ exercises, handleDelete }) => {
 
 ExerciseList.propTypes = {
   exercises: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default ExerciseList;

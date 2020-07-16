@@ -114,6 +114,7 @@ router.post(
       name: req.body.name,
       _id: req.params.id,
       sets: req.body.sets,
+      description: req.body.description,
     };
 
     try {

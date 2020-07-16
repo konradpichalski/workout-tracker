@@ -5,6 +5,7 @@ import {
   ADD_NEW_EXERCISE,
   UPDATE_EXERCISE_PLAN,
   UPDATE_CURRENT_EXERCISE_PLAN,
+  RESET_CURRENT_EXERCISE_PLAN,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -63,13 +64,23 @@ export const updateCurrentExercisePlan = (exercisePlan) => ({
 
 export const updateExercisePlan = (exercisePlan) => async (dispatch) => {
   try {
-    const res = await api.post(`/exerciseplan/${exercisePlan._id}`);
+    console.log(exercisePlan);
+    const res = await api.post(
+      `/exerciseplan/${exercisePlan._id}`,
+      exercisePlan,
+    );
 
     dispatch({
       type: UPDATE_EXERCISE_PLAN,
       payload: res.data,
     });
+
+    dispatch(setAlert('Exercise plan updated', 'success'));
   } catch (err) {
     console.error(err);
   }
 };
+
+export const resetCurrentExercisePlan = () => ({
+  type: RESET_CURRENT_EXERCISE_PLAN,
+});

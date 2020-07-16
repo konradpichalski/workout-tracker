@@ -6,7 +6,12 @@ import ActionButton from '../ActionButton/ActionButton';
 
 import { Table, TH, SetsContainer, THeader, TBody } from './styled';
 
-const ExercisePlanSets = ({ sets, handleAddSet }) => {
+const ExercisePlanSets = ({
+  sets,
+  handleAddSet,
+  handleSetChange,
+  handleRemoveSet,
+}) => {
   return (
     <SetsContainer>
       <Table noPadding>
@@ -24,7 +29,8 @@ const ExercisePlanSets = ({ sets, handleAddSet }) => {
               key={`setUI${num}`}
               set={set}
               num={num}
-              handleSetChange={() => console.log('')}
+              handleSetChange={(e, num, type) => handleSetChange(e, num, type)}
+              handleRemoveSet={(num) => handleRemoveSet(num)}
             />
           ))}
         </TBody>
@@ -40,6 +46,8 @@ const ExercisePlanSets = ({ sets, handleAddSet }) => {
 ExercisePlanSets.propTypes = {
   sets: PropTypes.array.isRequired,
   handleAddSet: PropTypes.func.isRequired,
+  handleSetChange: PropTypes.func.isRequired,
+  handleRemoveSet: PropTypes.func.isRequired,
 };
 
 export default ExercisePlanSets;

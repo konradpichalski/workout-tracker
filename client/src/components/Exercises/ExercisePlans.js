@@ -8,6 +8,7 @@ import ListItem from '../List/ListItem';
 import {
   getExercisePlans,
   deleteExercisePlan,
+  resetCurrentExercisePlan,
 } from '../../actions/exerciseplan';
 
 import { Container, List, Header, Loading } from '../../styles/shared.styled';
@@ -17,6 +18,7 @@ const ExercisePlans = ({
   exercisePlans,
   getExercisePlans,
   deleteExercisePlan,
+  resetCurrentExercisePlan,
   isLoading,
 }) => {
   const [activeItem, setActiveItem] = useState('0');
@@ -26,7 +28,10 @@ const ExercisePlans = ({
     getExercisePlans();
   }, [getExercisePlans]);
 
-  if (redirect !== '') return <Redirect to={redirect} />;
+  if (redirect !== '') {
+    resetCurrentExercisePlan();
+    return <Redirect to={redirect} />;
+  }
 
   if (isLoading)
     return (
@@ -70,6 +75,7 @@ ExercisePlans.propTypes = {
   exercisePlans: PropTypes.array.isRequired,
   getExercisePlans: PropTypes.func.isRequired,
   deleteExercisePlan: PropTypes.func.isRequired,
+  resetCurrentExercisePlan: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
 };
 
@@ -83,4 +89,5 @@ const mapStateToProps = ({ exercisePlan }) => {
 export default connect(mapStateToProps, {
   getExercisePlans,
   deleteExercisePlan,
+  resetCurrentExercisePlan,
 })(ExercisePlans);

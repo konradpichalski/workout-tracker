@@ -5,6 +5,7 @@ import {
   ADD_NEW_EXERCISE,
   UPDATE_CURRENT_EXERCISE_PLAN,
   UPDATE_EXERCISE_PLAN,
+  RESET_CURRENT_EXERCISE_PLAN,
 } from '../actions/types';
 
 const newExercisePlan = {
@@ -42,6 +43,7 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         currentExercisePlan: payload,
       };
+    case RESET_CURRENT_EXERCISE_PLAN:
     case ADD_NEW_EXERCISE:
       return {
         ...state,

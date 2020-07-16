@@ -20,6 +20,7 @@ const ExercisePlanForm = ({
   updateExercisePlan,
 }) => {
   const { name, description, sets } = exercisePlan;
+  console.log(exercisePlan);
 
   return (
     <Fragment>
@@ -57,6 +58,28 @@ const ExercisePlanForm = ({
             ],
           })
         }
+        handleSetChange={(e, num, type) =>
+          updateCurrentExercisePlan({
+            ...exercisePlan,
+            sets: sets.map((set, setNum) => {
+              if (num === setNum) {
+                return {
+                  ...set,
+                  [type]: {
+                    ...set[type],
+                    [e.target.name]: e.target.value,
+                  },
+                };
+              } else return set;
+            }),
+          })
+        }
+        handleRemoveSet={(num) => {
+          sets.splice(num, 1);
+          updateCurrentExercisePlan({
+            ...exercisePlan,
+          });
+        }}
       />
 
       {exercisePlan.name !== '' && (

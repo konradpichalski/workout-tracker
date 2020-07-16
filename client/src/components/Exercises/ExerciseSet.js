@@ -2,9 +2,14 @@ import React from 'react';
 
 import InputNumber from '../Input/InputNumber';
 
-import { TH } from './styled';
+import { TH, DeleteButton } from './styled';
 
-const ExerciseSet = ({ set: { repRange, rest }, num, handleSetChange }) => (
+const ExerciseSet = ({
+  set: { repRange, rest },
+  num,
+  handleSetChange,
+  handleRemoveSet,
+}) => (
   <tr>
     <TH>set {num + 1}</TH>
     <TH padding>
@@ -44,6 +49,11 @@ const ExerciseSet = ({ set: { repRange, rest }, num, handleSetChange }) => (
         onChange={(e) => handleSetChange(e, num, 'rest')}
       />{' '}
       sec
+    </TH>
+    <TH>
+      <DeleteButton right onClick={() => handleRemoveSet(num)}>
+        x
+      </DeleteButton>
     </TH>
   </tr>
 );

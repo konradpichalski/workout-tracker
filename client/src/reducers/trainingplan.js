@@ -4,6 +4,7 @@ import {
   GET_TRAINING_PLAN_BY_ID,
   ADD_NEW_TRAINING,
   UPDATE_CURRENT_TRAINING_PLAN,
+  UPDATE_TRAINING_PLAN,
 } from '../actions/types';
 
 const trainingPlan = {
@@ -34,14 +35,10 @@ export default (state = initialState, { type, payload }) => {
         ),
       };
     case GET_TRAINING_PLAN_BY_ID:
-      console.log(payload);
       return {
         ...state,
         loading: false,
-        currentTrainingPlan: {
-          ...payload.trainingPlan,
-          exercises: payload.exercises,
-        },
+        currentTrainingPlan: payload,
       };
     case ADD_NEW_TRAINING:
       return {
@@ -55,6 +52,7 @@ export default (state = initialState, { type, payload }) => {
         loading: false,
         currentTrainingPlan: payload,
       };
+    case UPDATE_TRAINING_PLAN:
     default:
       return state;
   }

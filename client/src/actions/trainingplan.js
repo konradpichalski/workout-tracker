@@ -4,6 +4,7 @@ import {
   GET_TRAINING_PLAN_BY_ID,
   ADD_NEW_TRAINING,
   UPDATE_CURRENT_TRAINING_PLAN,
+  UPDATE_TRAINING_PLAN,
 } from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
@@ -50,6 +51,24 @@ export const getTrainingPlanById = (id) => async (dispatch) => {
         type: ADD_NEW_TRAINING,
       });
     }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateTrainingPlan = (trainingPlan) => async (dispatch) => {
+  try {
+    const res = await api.post(
+      `/trainingplan/${trainingPlan._id}`,
+      trainingPlan,
+    );
+
+    dispatch({
+      type: UPDATE_TRAINING_PLAN,
+      payload: res.data,
+    });
+
+    dispatch(setAlert('Training plan updated', 'success'));
   } catch (err) {
     console.error(err);
   }

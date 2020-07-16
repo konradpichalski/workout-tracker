@@ -10,14 +10,7 @@ const TrainingPlanSchema = mongoose.Schema({
     ref: 'user',
     required: true,
   },
-  exercises: [
-    {
-      exercisePlanId: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  exercises: [],
 });
 
 module.exports = TrainingPlan = mongoose.model(

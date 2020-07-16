@@ -1,14 +1,17 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
 import Input from '../Input/Input';
-import ExerciseItem from '../Exercises/ExerciseItem';
+import ActionButton from '../ActionButton/ActionButton';
+import ExerciseList from '../Exercises/ExerciseList';
 import SelectList from '../SelectList/SelectList';
 
 import {
   getTrainingPlanById,
   updateCurrentTrainingPlans,
+  updateTrainingPlan,
 } from '../../actions/trainingplan';
 
 import { Container, Header, Label } from '../../styles/shared.styled';
@@ -18,6 +21,7 @@ const EditTrainingPlan = ({
   isTrainingPlanLoading,
   getTrainingPlanById,
   updateCurrentTrainingPlans,
+  updateTrainingPlan,
   match,
 }) => {
   const trainingPlanId = match.params.id;
@@ -26,25 +30,6 @@ const EditTrainingPlan = ({
   useEffect(() => {
     getTrainingPlanById(trainingPlanId);
   }, [getTrainingPlanById, trainingPlanId]);
-
-  const renderExerciseList = () =>
-    exercises.map((exercisePlan, index) => (
-      <ExerciseItem
-        key={exercisePlan._id + index}
-        exercisePlan={exercisePlan}
-        isDeletable={true}
-        handleDelete={() =>
-          updateCurrentTrainingPlans({
-            ...trainingPlan,
-            exercises: exercises.filter(
-              (exercise) => exercise._id !== exercisePlan._id,
-            ),
-          })
-        }
-      />
-    ));
-
-  console.log(exercises);
 
   if (isTrainingPlanLoading) return <Container>Loading...</Container>;
 
@@ -64,14 +49,35 @@ const EditTrainingPlan = ({
 
         {exercises.length > 0 && <Label>Exercises:</Label>}
 
-        {exercises.length > 0 && renderExerciseList()}
+        {exercises.length > 0 && (
+          <ExerciseList
+            exercises={exercises}
+            handleDelete={(id) =>
+              updateCurrentTrainingPlans({
+                ...trainingPlan,
+                exercises: exercises.filter((exercise) => exercise._id !== id),
+              })
+            }
+          />
+        )}
+
+        {exercises.length > 0 && (
+          <ActionButton
+            primary
+            handleClick={() => updateTrainingPlan(trainingPlan)}
+          >
+            Save
+          </ActionButton>
+        )}
       </Container>
 
       <SelectList
         handleAddExercisePlan={(newExercise) => {
+          const { name, sets } = newExercise;
+
           updateCurrentTrainingPlans({
             ...trainingPlan,
-            exercises: [...exercises, newExercise],
+            exercises: [...exercises, { _id: uuidv4(), name, sets }],
           });
         }}
       />
@@ -83,6 +89,7 @@ EditTrainingPlan.propTypes = {
   trainingPlan: PropTypes.object.isRequired,
   getTrainingPlanById: PropTypes.func.isRequired,
   updateCurrentTrainingPlans: PropTypes.func.isRequired,
+  updateTrainingPlan: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   isTrainingPlanLoading: PropTypes.bool.isRequired,
 };
@@ -97,4 +104,5 @@ const mapStateToProps = ({ trainingPlan }) => {
 export default connect(mapStateToProps, {
   getTrainingPlanById,
   updateCurrentTrainingPlans,
+  updateTrainingPlan,
 })(EditTrainingPlan);

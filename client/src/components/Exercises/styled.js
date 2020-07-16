@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colours, flex } from '../../styles/config';
 
-const { primary, textPrimary, textSecondary, list } = colours;
+const { primary, textPrimary, textSecondary, list, back } = colours;
 
 export const ExerciseItemContainer = styled.div`
   width: 100%;
@@ -43,7 +43,8 @@ export const Label = styled.h3`
 
 export const Table = styled.table`
   font-size: 0.8rem;
-  padding-left: 40px;
+  padding: 10px;
+  padding-left: ${(props) => (props.noPadding ? '0' : '40px')};
 `;
 
 export const THeader = styled.thead`
@@ -56,9 +57,9 @@ export const TBody = styled.tbody`
 
 export const TH = styled.th`
   font-weight: 300;
-  padding: 0 0.7rem;
+  padding: ${(props) => (props.padding ? '0.2rem 0.7rem' : '0 0.7rem')};
   text-align: left;
-  vertical-align: top;
+  vertical-align: center;
 `;
 
 export const DeleteButton = styled.button`
@@ -70,4 +71,12 @@ export const DeleteButton = styled.button`
   background: ${primary};
   color: #fff;
   ${(props) => props.right && 'margin-left: auto;'};
+`;
+
+export const SetsContainer = styled.div`
+  width: 100%;
+  background: ${back};
+  margin-bottom: 1rem;
+
+  ${flex('column', 'flex-start', 'flex-start')};
 `;

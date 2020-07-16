@@ -17,29 +17,15 @@ export const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-export const InputElement = styled.input`
+export const TextBoxElement = styled.textarea`
   width: 100%;
+  height: 70px;
   padding: 5px 0;
   border-radius: 4px;
   background: ${backDark};
   border: 1px solid ${backLight};
   outline: none;
   color: ${primary};
-
-  &:focus {
-    border: 1px solid ${primary};
-  }
-`;
-
-export const InputNumberElement = styled.input`
-  width: 40px;
-  padding: 5px 0;
-  border-radius: 4px;
-  background: ${backDark};
-  border: 1px solid ${backLight};
-  outline: none;
-  color: ${primary};
-  text-align: center;
 
   &:focus {
     border: 1px solid ${primary};

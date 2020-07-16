@@ -1,4 +1,11 @@
-import { GET_EXERCISE_PLANS, DELETE_EXERCISE_PLAN } from './types';
+import {
+  GET_EXERCISE_PLANS,
+  DELETE_EXERCISE_PLAN,
+  GET_EXERCISE_PLAN_BY_ID,
+  ADD_NEW_EXERCISE,
+  UPDATE_EXERCISE_PLAN,
+  UPDATE_CURRENT_EXERCISE_PLAN,
+} from './types';
 import api from '../utils/api';
 import { setAlert } from './alert';
 
@@ -25,6 +32,43 @@ export const deleteExercisePlan = (id) => async (dispatch) => {
     });
 
     dispatch(setAlert('Exercise plan deleted', 'success'));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getExercisePlanById = (id) => async (dispatch) => {
+  try {
+    if (id !== 'new') {
+      const res = await api.get(`/exerciseplan/${id}`);
+
+      dispatch({
+        type: GET_EXERCISE_PLAN_BY_ID,
+        payload: res.data,
+      });
+    } else {
+      dispatch({
+        type: ADD_NEW_EXERCISE,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateCurrentExercisePlan = (exercisePlan) => ({
+  type: UPDATE_CURRENT_EXERCISE_PLAN,
+  payload: exercisePlan,
+});
+
+export const updateExercisePlan = (exercisePlan) => async (dispatch) => {
+  try {
+    const res = await api.post(`/exerciseplan/${exercisePlan._id}`);
+
+    dispatch({
+      type: UPDATE_EXERCISE_PLAN,
+      payload: res.data,
+    });
   } catch (err) {
     console.error(err);
   }

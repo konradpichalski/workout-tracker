@@ -4,7 +4,11 @@ import { flex, colours } from '../../styles/config';
 
 const { primary, textPrimary } = colours;
 
-export const ButtonContainer = styled.div``;
+export const ButtonContainer = styled.div`
+  width: 100%;
+  ${flex('row', 'flex-start', 'center')}
+  flex-wrap: wrap;
+`;
 
 export const ButtonChip = styled.button`
   cursor: pointer;
